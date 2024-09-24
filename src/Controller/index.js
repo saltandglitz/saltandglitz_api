@@ -1,0 +1,5 @@
+module.exports.Login_Controller = require("./Login_controller")
+module.exports.Signup_Controller = require("./Signup_controller")
+module.exports.Shipping_Controller = require("./Shipping_controller")
+module.exports.Admin_Controller = require("./admin_controller")
+module.exports.Cart_controller = require('./cartController')
