@@ -48,10 +48,9 @@ router.post('/remove', async (req, res) => {
 
 router.post('/delete', async (req, res) => {
     try {
-        
         const { id } = req.body;
-        await CartItem.findByIdAndDelete({ id });
-        res.status(200).json({ message: 'Item deleted' });
+        await CartItem.deleteOne({ id });
+        res.status(200).json({ message: 'Item deleted', id }); 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
