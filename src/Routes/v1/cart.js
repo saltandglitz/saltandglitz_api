@@ -59,7 +59,23 @@ router.post('/delete', async (req, res) => {
 });
 
 
-// router.post('/apply-discount', async (req, res) => {
+// const coupons = {
+//     'PERFECT3': 555,
+//     'SHAYAUPSELL10': 2000,
+//     'MOUNT5': 5000,
+// };
+
+// router.post('/apply-discount', (req, res) => {          
+//     const { code } = req.body;
+//     const discountAmount = coupons[code.toUpperCase()];
+    
+//     if (discountAmount) {
+//         return res.status(200).json({ discountAmount });
+//     } else {
+//         return res.status(400).json({ message: 'Invalid discount code' });
+//     }
+// });
+// // router.post('/apply-discount', async (req, res) => {
 //     try {
 //         const { discountCode } = req.body;
 //         let discountPercent = 0;
