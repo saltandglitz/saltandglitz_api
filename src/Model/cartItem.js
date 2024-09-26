@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const cartItemSchema =  mongoose.Schema({
+const cartItemSchema = mongoose.Schema({
     id:
     {
         type: String,
@@ -30,7 +30,16 @@ const cartItemSchema =  mongoose.Schema({
     {
         type: Number,
         required: true
-    }
+    },
+    discount: {
+        type: Number,
+        default: 0
+    },
+    subtotal:
+    {
+        type: Number,
+        default: 0
+    },
 });
 
 module.exports = mongoose.model('CartItem', cartItemSchema);
