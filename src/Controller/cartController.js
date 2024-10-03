@@ -1,35 +1,36 @@
-<<<<<<< HEAD
 const cartService = require('../Services/cartServies');
 
+// Add item to cart
 exports.addItem = async (req, res) => {
   try {
-    const newItem = await cartService.addToCart(req.body);
+    const newItem = await cartService.addItemToCart(req.user.id, req.body.product);
     res.status(201).json(newItem);
   } catch (error) {
-    res.status(500).json({ error: 'Error adding item to cart' });
+    res.status(500).json({ message: 'Error adding item to cart', error });
   }
 };
 
+// Remove item from cart
 exports.removeItem = async (req, res) => {
   try {
-    const itemId = req.params.id;
-    const updatedCart = await cartService.removeFromCart(itemId);
-    res.status(200).json(updatedCart);
+    const cart = await cartService.removeItemFromCart(req.user.id, req.params.productId);
+    res.status(200).json(cart);
   } catch (error) {
-    res.status(500).json({ error: 'Error removing item from cart' });
+    res.status(500).json({ message: 'Error removing item from cart', error });
   }
 };
 
+// Delete item from cart
 exports.deleteItem = async (req, res) => {
   try {
-    const itemId = req.params.id;
-    const updatedCart = await cartService.deleteFromCart(itemId);
-    res.status(200).json(updatedCart);
+    const cart = await cartService.deleteItemFromCart(req.user.id, req.params.productId);
+    res.status(200).json(cart);
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting item from cart' });
+    res.status(500).json({ message: 'Error deleting item from cart', error });
   }
 };
 
+// Apply coupon code
 exports.applyCoupon = async (req, res) => {
   try {
     const { discountCode } = req.body;
@@ -40,50 +41,16 @@ exports.applyCoupon = async (req, res) => {
       res.status(200).json(cart);
     }
   } catch (error) {
-    res.status(500).json({ error: 'Error applying coupon code' });
+    res.status(500).json({ message: 'Error applying coupon code', error });
   }
 };
 
+// Get cart items
 exports.getCartItems = async (req, res) => {
   try {
-    const cart = await cartService.getCartItems();
+    const cart = await cartService.getCartItems(req.user.id);
     res.status(200).json(cart);
   } catch (error) {
-    res.status(500).json({ error: 'Error retrieving cart items' });
+    res.status(500).json({ message: 'Error retrieving cart items', error });
   }
 };
-=======
-const {cart_Services} = require('../Services');
-
-const addToCart = async (req, res) => {
-  try {
-    const cart = await cart_Services.addItemToCart(req.user.id, req.body.product);
-    res.status(200).json(cart);
-  } catch (error) {
-    res.status(500).json({ message: 'Error adding item to cart', error });
-  }
-};
-
-const removeFromCart = async (req, res) => {
-  try {
-    const cart = await cart_Services.removeItemFromCart(req.user.id, req.params.productId);
-    res.status(200).json(cart);
-  } catch (error) {
-    res.status(500).json({ message: 'Error removing item from cart', error });
-  }
-};
-
-const deleteFromCart = async (req, res) => {
-  try {
-    const cart = await cart_Services.deleteItemFromCart(req.user.id, req.params.productId);
-    res.status(200).json(cart);
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting item from cart', error });
-  }
-};
-module.exports = {
-  addToCart,
-  deleteFromCart,
-  removeFromCart
-}
->>>>>>> 0a6699153dccfa34f5f623653daa54d8504c23b8
