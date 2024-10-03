@@ -31,9 +31,14 @@ exports.removeFromWishlist = async (req, res) => {
 
 exports.getWishlist = async (req, res) => {
     try {
-        const items = await WishlistItem.find();
+        const { userId } = req.params; // Get userId from request parameters
+        const items = await WishlistItem.find({ userId }); // Find wishlist items for the specific user
+        if (!items.length) {
+            return res.status(404).json({ message: 'No wishlist items found for this user' });
+        }
         res.status(200).json(items);
     } catch (error) {
         res.status(500).json({ error: 'Could not retrieve wishlist items' });
     }
 };
+

@@ -54,7 +54,7 @@ router.post('/remove', async (req, res) => {
 // Delete item from the cart completely
 router.post('/delete', async (req, res) => {
     try {
-        const { id, userId } = req.body; // Extract id and userId from request body
+        const { id, userId } = req.body; 
         await CartItem.deleteOne({ id, userId });
         res.status(200).json({ message: 'Item deleted', id });
     } catch (error) {

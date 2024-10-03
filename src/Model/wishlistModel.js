@@ -7,6 +7,7 @@ const wishlistSchema = new mongoose.Schema({
     price: { type: Number, required: true },
 });
     
-const WishlistItem = mongoose.model('WishlistItem', wishlistSchema); // Define the model
+const WishlistItem = mongoose.model('WishlistItem', wishlistSchema); 
 
 module.exports = WishlistItem; // Export the model
+    
