@@ -27,7 +27,7 @@ router.post('/add', async (req, res) => {
     }
 });
 
-// Remove an item from the cart
+// Remove item or reduce quantity from the cart
 router.post('/remove', async (req, res) => {
     try {
         const { id, userId } = req.body; // Extract id and userId from request body
@@ -36,24 +36,37 @@ router.post('/remove', async (req, res) => {
         if (cartItem) {
             if (cartItem.quantity === 1) {
                 await CartItem.deleteOne({ id, userId });
+                res.status(200).json({ message: 'Item removed from cart' });
             } else {
                 cartItem.quantity -= 1;
                 cartItem.totalprice = cartItem.price * cartItem.quantity;
                 await cartItem.save();
+                res.status(200).json(cartItem);
             }
+        } else {
+            res.status(404).json({ message: 'Item not found in cart' });
         }
-        res.status(200).json(cartItem);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// Delete an item from the cart
+// Delete item from the cart completely
 router.post('/delete', async (req, res) => {
     try {
         const { id, userId } = req.body; // Extract id and userId from request body
         await CartItem.deleteOne({ id, userId });
         res.status(200).json({ message: 'Item deleted', id });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Get all items from the cart
+router.get('/', async (req, res) => {
+    try {
+        const cartItems = await CartItem.find();
+        res.status(200).json(cartItems);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

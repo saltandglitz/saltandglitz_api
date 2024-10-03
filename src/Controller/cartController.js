@@ -54,3 +54,12 @@ exports.getCartItems = async (req, res) => {
     res.status(500).json({ message: 'Error retrieving cart items', error });
   }
 };
+
+// Export the methods
+module.exports = {
+  addItem: exports.addItem,
+  removeItem: exports.removeItem,
+  deleteItem: exports.deleteItem,
+  applyCoupon: exports.applyCoupon,
+  getCartItems: exports.getCartItems
+};

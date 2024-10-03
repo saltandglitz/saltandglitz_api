@@ -9,7 +9,7 @@ router.post('/add', cartController.addItem);
 router.post('/remove/:id', cartController.removeItem);
 
 // Delete item from cart
-router.post('/delete/:id', cartController.deleteItem);
+router.post('/delete/:productId', cartController.deleteItem);
 
 // Apply coupon code
 router.post('/apply-coupon', cartController.applyCoupon);

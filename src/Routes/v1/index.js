@@ -1,22 +1,23 @@
-const express = require("express")
+const express = require("express");
 
-const loginRoutes = require("./Login_routes")
-const signupRoutes = require("./Signup_routes")
-const shippingRoutes = require("./Shipping_routes")
-const adminRoutes = require("./admin_routes")
-const cartRoutes = require('./cartRoutes')
-const cartsRoutes = require('./cart')
-const wishlistRoutes = require('./wishlistRoutes')
-const productRoutes = require('./Product')
-const router = express()
+const loginRoutes = require("./Login_routes");
+const signupRoutes = require("./Signup_routes");
+const shippingRoutes = require("./Shipping_routes");
+const adminRoutes = require("./admin_routes");
+const cartRoutes = require('./cartRoutes');
+const cartsRoutes = require('./cart');
+const wishlistRoutes = require('./wishlistRoutes');
+const productRoutes = require('./Product');
 
-router.use("/login",loginRoutes)
-router.use("/signup",signupRoutes)
-router.use("/shipping",shippingRoutes)
-router.use("/admin",adminRoutes)
-router.use('/cart',cartRoutes)
-router.use('/carts',cartsRoutes)
-router.use('/wishlist',wishlistRoutes)
-router.use('/product',productRoutes)
+const router = express();
 
-module.exports = router
+router.use("/login", loginRoutes);
+router.use("/signup", signupRoutes);
+router.use("/shipping", shippingRoutes);
+router.use("/admin", adminRoutes);
+router.use('/cart', cartRoutes);
+router.use('/carts', cartsRoutes);
+router.use('/wishlist', wishlistRoutes);
+router.use('/product', productRoutes);
+
+module.exports = router;
