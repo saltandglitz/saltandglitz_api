@@ -19,8 +19,6 @@ app.get('/hello',(req,res)=>{
 app.use('/v1', router);
 app.use('/v1/login', authRoutes);
 
-// app.use('/v1/otp', otpRoutes);
-
 const port = 5000 
 app.listen(port, () => console.log(`Server listening on port: ${port}`));
 
