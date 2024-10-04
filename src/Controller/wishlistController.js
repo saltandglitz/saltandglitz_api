@@ -4,16 +4,16 @@ exports.addToWishlist = async (req, res) => {
     try {
         const { id, title, image01, price } = req.body;
 
-        console.log('Received item:', { id, title, image01, price });
+        // console.log('Received item:', { id, title, image01, price });
 
         const newItem = new WishlistItem({ id, title, image01, price });
         await newItem.save();
 
-        console.log('Item saved to database:', newItem);
+        // console.log('Item saved to database:', newItem);
 
         res.status(201).json({ message: 'Item added to wishlist', item: newItem });
     } catch (error) {
-        console.error('Error saving to database:', error);
+        // console.error('Error saving to database:', error);
         res.status(500).json({ error: 'Could not add item to wishlist' });
     }
 };

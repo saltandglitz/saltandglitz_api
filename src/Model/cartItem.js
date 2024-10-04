@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const cartItemSchema = mongoose.Schema({
+const cartItemSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true
@@ -33,10 +33,12 @@ const cartItemSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    // userId: {  // Add userId to link cart items to a specific user
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true
+    // userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    // productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true }
+    // userId: { 
+    //     type: mongoose.Schema.Types.ObjectId, 
+    //     ref: 'User', 
+    //     required: true // Make userId required to ensure cart is linked to a user
     // }
 });
 

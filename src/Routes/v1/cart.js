@@ -71,5 +71,36 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+// router.post('/add', async (req, res) => {
+//     try {
+//         const { userId, productId, quantity } = req.body;
+//         const cartItem = await CartItem.create({ userId, productId, quantity });
+//         res.status(201).json(cartItem);
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+// // Remove from Cart
+// router.post('/remove/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         await CartItem.findByIdAndDelete(id);
+//         res.status(204).send();
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
+
+// // Delete Cart for a User
+// router.post('/delete/:userId', async (req, res) => {
+//     try {
+//         const { userId } = req.params;
+//         await CartItem.deleteMany({ userId });
+//         res.status(204).send();
+//     } catch (error) {
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 module.exports = router;
