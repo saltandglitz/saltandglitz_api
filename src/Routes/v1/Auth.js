@@ -2,7 +2,6 @@ const express = require('express');
 const User = require('../../Model/User');
 const sendEmail = require('../../Services/emailServices');
 const router = express.Router();
-// const sendEmail = require('../../utils/sendEmail');  // Assuming the email sending logic is in a utils file
 
 // POST: Create new user
 router.post('/create-User', async (req, res) => {
