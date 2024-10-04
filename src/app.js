@@ -6,9 +6,12 @@ const connectDB = require('./db/dbconnection');
 const router = require('./Routes/v1');
 const authRoutes = require('./Routes/v1/Auth')
 // const otpRoutes = require('./Controller/otpController');
+
 const app = express();
 
-app.use(bodyParser.json(), cors());
+app.use(cors()); // CORS should be applied before routes
+app.use(bodyParser.json()); // Body parser should come after CORS
+
 app.get('/',(req,res)=>{  
   res.send('welcome')
 })
