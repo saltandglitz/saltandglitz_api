@@ -33,13 +33,7 @@ const cartItemSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    // userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    // productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true }
-    // userId: { 
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: 'User', 
-    //     required: true // Make userId required to ensure cart is linked to a user
-    // }
+ 
 });
 
 module.exports = mongoose.model('CartItem', cartItemSchema);

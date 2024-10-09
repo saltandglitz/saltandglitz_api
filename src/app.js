@@ -4,9 +4,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./db/dbconnection');
 const router = require('./Routes/v1');
-const authRoutes = require('./Routes/v1/Auth')
+// const authRoutes = require('./Routes/v1/Auth')
 // const otpRoutes = require('./Controller/otpController');
-
+const userRoutes = require('./Routes/v1/userRoutes');
 const app = express();
 
 app.use(cors()); // CORS should be applied before routes
@@ -20,7 +20,7 @@ app.get('/hello',(req,res)=>{
 })
 
 app.use('/v1', router);
-app.use('/v1/login', authRoutes);
+app.use('/api/users', userRoutes);
 
 const port = 5000 
 app.listen(port, () => console.log(`Server listening on port: ${port}`));
