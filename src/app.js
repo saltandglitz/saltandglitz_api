@@ -12,17 +12,17 @@ const app = express();
 app.use(cors()); // CORS should be applied before routes
 app.use(bodyParser.json()); // Body parser should come after CORS
 
-app.get('/',(req,res)=>{  
+app.get('/', (req, res) => {
   res.send('welcome')
 })
-app.get('/hello',(req,res)=>{
+app.get('/hello', (req, res) => {
   res.send('hello world')
 })
 
 app.use('/v1', router);
 app.use('/api/users', userRoutes);
 
-const port = 5000 
+const port = 5000
 app.listen(port, () => console.log(`Server listening on port: ${port}`));
 
 connectDB();
