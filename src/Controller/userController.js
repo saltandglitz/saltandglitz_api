@@ -1,12 +1,15 @@
 const User = require('../Model/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const admin = require('../middleware/firebaseAdmin');
+
+// JWT Secret Key (store in .env in production)
+const JWT_SECRET = process.env.JWT_SECRET || 'SALTANDGLITZ';
 
 // User registration
 exports.registerUser = async (req, res) => {
   const { name, email, password, gender } = req.body;
 
-  // Check if all required fields are provided
   if (!name || !email || !password || !gender) {
     return res.status(400).json({ message: 'All fields are required' });
   }
@@ -21,7 +24,7 @@ exports.registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user
+    // Create new user
     user = new User({
       name,
       email,
@@ -30,21 +33,20 @@ exports.registerUser = async (req, res) => {
     });
 
     await user.save();
-
     res.status(201).json({ message: 'User registered successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
 // User login
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
-  const JWT_SECRET = "SALTANDGLITZ"
+
   try {
     // Check if user exists
-    let user = await User.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
@@ -55,16 +57,62 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Create JWT token
+    // Generate JWT token
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({ token, message: 'Login successful' });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
-// User logout (clear the token on client-side)
+// Get user profile (protected route)
+exports.getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// User logout
 exports.logoutUser = (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
+};
+
+exports.googleLoginUser = async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    // Verify the token with Firebase Admin SDK
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const { name, email } = decodedToken;
+
+    let user = await User.findOne({ email });
+
+    // Register the user if they don't exist
+    if (!user) {
+      user = new User({
+        name,
+        email,
+        password: null,  // No password for Google sign-in users
+        gender: '',      // Gender can be set on the frontend after registration
+      });
+      await user.save();
+    }
+
+    // Generate JWT for the user
+    const jwtToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({ token: jwtToken, message: 'Login successful', user });
+  } catch (error) {
+    console.error('Error verifying Google token:', error);
+    res.status(401).json({ message: 'Invalid Google token' });
+  }
 };

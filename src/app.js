@@ -4,25 +4,26 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./db/dbconnection');
 const router = require('./Routes/v1');
-// const authRoutes = require('./Routes/v1/Auth')
-// const otpRoutes = require('./Controller/otpController');
 const userRoutes = require('./Routes/v1/userRoutes');
 const app = express();
 
-app.use(cors()); // CORS should be applied before routes
-app.use(bodyParser.json()); // Body parser should come after CORS
+app.use(cors()); // Enable CORS
+app.use(bodyParser.json()); // Parse incoming JSON requests
 
+// Test Routes
 app.get('/', (req, res) => {
-  res.send('welcome')
-})
+  res.send('Welcome');
+});
 app.get('/hello', (req, res) => {
-  res.send('hello world')
-})
+  res.send('Hello World');
+});
 
-app.use('/v1', router);
-app.use('/api/users', userRoutes);
+// Routes
+app.use('/v1', router); // Your other routes
+app.use('/api/users', userRoutes); // User-related routes
 
-const port = 5000
+
+const port = 5000;
 app.listen(port, () => console.log(`Server listening on port: ${port}`));
 
-connectDB();
+connectDB(); // Connect to the database
