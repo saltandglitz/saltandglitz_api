@@ -70,11 +70,15 @@ exports.loginUser = async (req, res) => {
 // Get user profile (protected route)
 exports.getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user).select('-password');
+    // Find user by ID from the decoded token
+    const user = await User.findById  (req.user).select('-password'); // Exclude password from the response
+    console.log('User ID:', req.user);
+    console.log('Fetched User:', user);
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    res.status(200).json(user);
+    res.status(200).json(user); // Return the user data
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -86,6 +90,7 @@ exports.logoutUser = (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
 
+// Google login implementation
 exports.googleLoginUser = async (req, res) => {
   const { token } = req.body;
 

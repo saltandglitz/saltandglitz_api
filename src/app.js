@@ -22,6 +22,17 @@ app.get('/hello', (req, res) => {
 app.use('/v1', router); // Your other routes
 app.use('/api/users', userRoutes); // User-related routes
 
+// app.put('/api/users/update', (req, res) => {
+//   const { name, email, mobile, pincode, birthday, anniversary, occupation, spouseBirthday } = req.body;
+
+//   // Simple validation
+//   if (!name || !email || !mobile) {
+//       return res.status(400).json({ message: 'Please fill in all required fields' });
+//   }
+
+//   userProfile = { name, email, mobile, pincode, birthday, anniversary, occupation, spouseBirthday }; // Update user profile
+//   res.status(200).json({ message: 'Profile updated successfully', userProfile });
+// });
 
 const port = 5000;
 app.listen(port, () => console.log(`Server listening on port: ${port}`));
