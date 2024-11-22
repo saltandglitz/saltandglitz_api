@@ -72,8 +72,8 @@ exports.getUserProfile = async (req, res) => {
   try {
     // Find user by ID from the decoded token
     const user = await User.findById  (req.user).select('-password'); // Exclude password from the response
-    console.log('User ID:', req.user);
-    console.log('Fetched User:', user);
+    // console.log('User ID:', req.user);
+    // console.log('Fetched User:', user);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
