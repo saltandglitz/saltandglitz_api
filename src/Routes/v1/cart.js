@@ -5,27 +5,43 @@ const CartItem = require('../../Model/cartItem');
 // Add an item to the cart
 router.post('/add', async (req, res) => {
     try {
-        const { userId, ...newItem } = req.body;  // Destructure userId and other item details
-        let cartItem = await CartItem.findOne({ id: newItem.id, userId }); // Find by both id and userId
+        console.log("Request Body:", req.body); // Debug incoming request
+
+        const { userId, id, title, price, image01, selectedSize, confirmedMetal, confirmedDiamondQuality } = req.body;
+
+        if (!userId || !id || !title || !price) {
+            console.log("Missing required fields");
+            return res.status(400).json({ message: "Invalid or missing data in request" });
+        }
+
+        let cartItem = await CartItem.findOne({ id, userId });
 
         if (cartItem) {
             cartItem.quantity += 1;
             cartItem.totalprice = cartItem.price * cartItem.quantity;
         } else {
             cartItem = new CartItem({
-                ...newItem,
+                id,
+                title,
+                price,
+                image01,
                 quantity: 1,
-                totalprice: newItem.price,
-                userId // Save userId
+                totalprice: price,
+                selectedSize: selectedSize || "defaultSize",
+                confirmedMetal: confirmedMetal || "defaultMetal",
+                confirmedDiamondQuality: confirmedDiamondQuality || "defaultDiamondQuality",
+                userId
             });
         }
 
         await cartItem.save();
         res.status(201).json(cartItem);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Error adding item to cart:", error); // Debug error
+        res.status(500).json({ message: "Failed to add to cart", error: error.message });
     }
 });
+
 
 // Remove item or reduce quantity from the cart
 router.post('/remove', async (req, res) => {

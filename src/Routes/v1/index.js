@@ -7,6 +7,7 @@ const adminRoutes = require("./admin_routes");
 const cartsRoutes = require('./cart');
 const wishlistRoutes = require('./wishlistRoutes');
 const productRoutes = require('./Product');
+const uploadRoutes = require('./upload_routes');
 
 const router = express();
 
@@ -17,5 +18,7 @@ router.use("/admin", adminRoutes);
 router.use('/carts', cartsRoutes);
 router.use('/wishlist', wishlistRoutes);
 router.use('/product', productRoutes);
+router.use('/upload', uploadRoutes);
+
 
 module.exports = router;

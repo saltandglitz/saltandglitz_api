@@ -110,7 +110,7 @@ exports.googleLoginUser = async (req, res) => {
         gender: '',      // Gender can be set on the frontend after registration
       });
       await user.save();
-    }
+    } 
 
     // Generate JWT for the user
     const jwtToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
