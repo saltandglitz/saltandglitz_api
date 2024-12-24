@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./db/dbconnection");
 const router = require("./Routes/v1");
 const userRoutes = require("./Routes/v1/userRoutes");
-const app = express();
+const app = express();  
 
 app.use(cors()); // Enable CORS
 app.use(bodyParser.json()); // Parse incoming JSON requests

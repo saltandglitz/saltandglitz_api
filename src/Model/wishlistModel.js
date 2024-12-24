@@ -1,3 +1,4 @@
+// models/wishlistModel.js
 const mongoose = require('mongoose');
 
 const wishlistSchema = new mongoose.Schema({
@@ -6,8 +7,5 @@ const wishlistSchema = new mongoose.Schema({
     image01: { type: String, required: true },
     price: { type: Number, required: true },
 });
-    
-const WishlistItem = mongoose.model('WishlistItem', wishlistSchema); 
 
-module.exports = WishlistItem;
-    
+module.exports = mongoose.model('WishlistItem', wishlistSchema);
