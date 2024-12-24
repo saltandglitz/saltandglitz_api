@@ -15,7 +15,7 @@ const router = express();
 // router.use("/signup", signupRoutes);
 router.use("/shipping", shippingRoutes);
 router.use("/admin", adminRoutes);
-router.use('/carts', cartsRoutes);
+router.use('/Cart', cartsRoutes);
 router.use('/wishlist', wishlistRoutes);
 router.use('/product', productRoutes);
 router.use('/upload', uploadRoutes);
