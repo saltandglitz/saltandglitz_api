@@ -1,4 +1,4 @@
-module.exports.Shipping = require("./Shipping");
+// module.exports.shippingSchema = require("./Shipping");
 module.exports.Admin = require("./admin");
 module.exports.cartSchema = require('./cartItem');
 module.exports.Product = require('./Product');

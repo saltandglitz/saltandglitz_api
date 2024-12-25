@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./db/dbconnection");
 const router = require("./Routes/v1");
 const userRoutes = require("./Routes/v1/userRoutes");
+const { createShipping } = require("./Controller/Shipping_controller");
 const app = express();  
 
 app.use(cors()); // Enable CORS

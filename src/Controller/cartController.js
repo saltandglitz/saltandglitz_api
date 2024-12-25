@@ -85,42 +85,33 @@ module.exports.addToCart = async (req, res) => {
 
     console.log(req.body);
 
-    // Validate userId
     if (!user || !isValidObjectId(user)) {
         return res.status(400).send({ status: false, message: "Invalid user ID" });
     }
 
-    // Validate productId
     if (!product || !isValidObjectId(product)) {
         return res.status(400).send({ status: false, message: "Invalid product ID" });
     }
 
-    // Check if user exists
     let existingUser = await User.exists({ _id: user });
     if (!existingUser) {
         return res.status(400).send({ status: false, message: "User not found" });
     }
 
-    // Check if the product exists
     let upload = await Uplod.exists({ _id: product });
-    // console.log(upload);
     
     if (!upload) {
         return res.status(400).send({ status: false, message: "Product not found" });
     }
 
-    // Retrieve the user's cart
     let cart = await cartSchema.findOne({ userId: user });
 
     if (cart) {
-        // Find the product in the cart (search by productId)
         let productIndex = cart.quantity.findIndex((item) => item.productId.toString() === product.toString());
 
         if (productIndex > -1) {
-            // Product already in cart, update quantity
-            cart.quantity[productIndex].quantity += quantity || 1;  // Default to 1 if no quantity is provided
+            cart.quantity[productIndex].quantity += quantity || 1;  
         } else {
-            // Product not in cart, add it with the given quantity
             cart.quantity.push({ productId: product || 1 });
         }
 
@@ -128,7 +119,6 @@ module.exports.addToCart = async (req, res) => {
         await cart.save();
         return res.status(200).send({ status: true, updatedCart: cart });
     } else {
-        // If no cart exists, create a new one with the product and quantity
         const newCart = await cartSchema.create({
             userId: user,
             quantity: [{ productId: product, quantity: quantity || 1 }],
@@ -140,22 +130,19 @@ module.exports.addToCart = async (req, res) => {
 
 
 module.exports.getCart = async (req, res) => {
-    let { user } = req.params;  // Assuming user ID is passed as a parameter
-
-    // Validate userId
+    let { user } = req.params;  
     if (!user || !isValidObjectId(user)) {
         return res.status(400).send({ status: false, message: "Invalid user ID" });
     }
 
     try {
-        // Check if user exists
+
         let existingUser = await User.exists({ _id: user });
         if (!existingUser) {
             return res.status(404).send({ status: false, message: "User not found" });
         }
 
-        // Retrieve the user's cart
-        let cart = await cartSchema.findOne({ userId: user }).populate('quantity.productId');  // Optionally populate the product details
+        let cart = await cartSchema.findOne({ userId: user }).populate('quantity.productId');
 
         if (!cart) {
             return res.status(404).send({ status: false, message: "Cart is empty" });
@@ -180,19 +167,16 @@ module.exports.removeItemFromCart = async (req, res) => {
         return res.status(400).send({ status: false, message: "Invalid user ID" });
     }
 
-    // Validate productId
     if (!product || !isValidObjectId(product)) {
         return res.status(400).send({ status: false, message: "Invalid product ID" });
     }
 
     try {
-        // Check if user exists
         let existingUser = await User.exists({ _id: user });
         if (!existingUser) {
             return res.status(404).send({ status: false, message: "User not found" });
         }
 
-        // Retrieve the user's cart
         let cart = await cartSchema.findOne({ userId: user });
 
         if (!cart) {
@@ -204,6 +188,7 @@ module.exports.removeItemFromCart = async (req, res) => {
             { $pull: { quantity: { productId: product } } },
             { new: true }
         );
+        
 
         if (!updatedCart) {
             return res.status(404).send({ status: false, message: "Product not found in cart" });
