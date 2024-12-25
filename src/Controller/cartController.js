@@ -79,7 +79,6 @@
 
 const { isValidObjectId } = require("mongoose");
 const { cartSchema, User, Uplod } = require("../Model");
-const { cartServices } = require("../Services");
 
 module.exports.addToCart = async (req, res) => {
     let { product, user, quantity } = req.body;
@@ -104,6 +103,8 @@ module.exports.addToCart = async (req, res) => {
 
     // Check if the product exists
     let upload = await Uplod.exists({ _id: product });
+    // console.log(upload);
+    
     if (!upload) {
         return res.status(400).send({ status: false, message: "Product not found" });
     }
@@ -200,8 +201,8 @@ module.exports.removeItemFromCart = async (req, res) => {
 
         let updatedCart = await cartSchema.findOneAndUpdate(
             { userId: user },
-            { $pull: { quantity: { productId: product } } }, 
-            { new: true } 
+            { $pull: { quantity: { productId: product } } },
+            { new: true }
         );
 
         if (!updatedCart) {

@@ -5,7 +5,8 @@ const express = require("express");
 const shippingRoutes = require("./Shipping_routes");
 const adminRoutes = require("./admin_routes");
 const cartsRoutes = require('./cart');
-const wishlistRoutes = require('./wishlistRoutes');
+const wishlistRoute = require("./wishlistRoutes")
+// const wishlistRoutes = require('./wishlistRoutes');
 const productRoutes = require('./Product');
 const uploadRoutes = require('./upload_routes');
 
@@ -16,7 +17,8 @@ const router = express();
 router.use("/shipping", shippingRoutes);
 router.use("/admin", adminRoutes);
 router.use('/Cart', cartsRoutes);
-router.use('/wishlist', wishlistRoutes);
+// router.use('/wishlist', wishlistRoutes);
+router.use("/wishlist", wishlistRoute)
 router.use('/product', productRoutes);
 router.use('/upload', uploadRoutes);
 
