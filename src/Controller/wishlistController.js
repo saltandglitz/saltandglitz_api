@@ -19,7 +19,7 @@ module.exports.addToWishlist = async (req, res) => {
     if (!wishlist) {
       wishlist = new wishlistSchema({
         userId,
-        products: [{ productId, quantity: 1 }]
+        products: [{ productId }]
       });
       await wishlist.save();
       return res.status(201).send({ status: true, message: "Product added to wishlist", wishlist });
@@ -30,7 +30,7 @@ module.exports.addToWishlist = async (req, res) => {
       return res.status(400).send({ status: false, message: "Product is already in your wishlist" });
     }
 
-    wishlist.products.push({ productId: productId, quantity: 1 });
+    wishlist.products.push({ productId: productId });
     await wishlist.save();
 
     return res.status(201).send({ status: true, message: "Product added to wishlist", wishlist });
@@ -52,12 +52,45 @@ module.exports.getWishlist = async (req, res) => {
 
     let wishlist = await wishlistSchema.findOne({ userId }).populate("products.productId");
 
+    // const updatedWishlist = {
+    //   wishlist_id: wishlist._id,
+    //   ...wishlist.toObject(),
+    //   _id: undefined,
+
+    //   products: wishlist.products.map(product => {
+    //     const { _id, ...body } = product.toObject();
+    //     return { product_id: product.productId._id, ...body };
+    //   })
+    // };
+
+    const updatedWishlist = {
+      wishlist_id: wishlist._id,
+      ...wishlist.toObject(),
+      _id: undefined,
+
+      products: wishlist.products.map(product => {
+        const { _id, productId, ...body } = product.toObject();  // Extract productId and other fields
+
+        return {
+          _id: undefined,
+          ...body,
+          productId: {
+            product_id: productId._id,
+            ...productId,
+            _id: undefined
+          }
+        };
+      })
+
+    };
+
+
     if (!wishlist) {
       return res.status(404).send({ status: false, message: "Wishlist not found" });
     }
     console.log(wishlist);
 
-    return res.status(200).send({ status: true, message: "Wishlist retrieved", wishlist: wishlist });
+    return res.status(200).send({ status: true, message: "Wishlist retrieved", wishlist: updatedWishlist });
 
   } catch (err) {
     return res.status(500).send({ status: false, message: err.message });

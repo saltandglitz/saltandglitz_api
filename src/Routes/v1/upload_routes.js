@@ -80,12 +80,22 @@ router.post("/post_upload", async (req, res) => {
 // Get all products from the database
 router.get("/get_upload", async (req, res) => {
   try {
-    const products = await Upload.find(); // Fetch all products from MongoDB
-    res.status(200).json(products);
+    // Fetch all products from MongoDB
+    const products = await Upload.find();
+
+    // Modify the products array to rename _id to product_id
+    const updatedProducts = products.map(product => {
+      const { _id, ...body } = product.toObject();
+      return { product_id: _id, ...body };
+    });
+
+    // Send the modified products array as response
+    res.status(200).json(updatedProducts);
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ message: "Error fetching products" });
   }
 });
+
 
 module.exports = router;

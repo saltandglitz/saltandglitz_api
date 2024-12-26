@@ -22,6 +22,8 @@ router.get('/profile', authenticateJWT, getUserProfile);
 router.get('/user', authenticateJWT, async (req, res) => {
     try {
         const user = await User.findById(req.user.id); // Assuming req.user.id contains the user ID
+        console.log(user);
+        
         if (user) {
             res.json({ id: user._id, name: user.name }); // Send user ID and other details
         } else {
