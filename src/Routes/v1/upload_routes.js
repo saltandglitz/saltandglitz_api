@@ -39,6 +39,8 @@ router.post("/post_upload", async (req, res) => {
         existingProduct.total14KT = product.total14KT;
         existingProduct.total18KT = product.total18KT;
         existingProduct.grossWt = product.grossWt;
+        existingProduct.netWeight14KT = product.netWeight14KT;
+        existingProduct.netWeight18KT = product.netWeight18KT;
         updatedProducts.push(await existingProduct.save());
       } else {
         // If the product doesn't exist, insert a new product
@@ -56,7 +58,9 @@ router.post("/post_upload", async (req, res) => {
           gst18KT: product.gst18KT,
           total14KT: product.total14KT,
           total18KT: product.total18KT,
-          grossWt: product.grossWt
+          grossWt: product.grossWt,
+          netWeight14KT: product.netWeight14KT,
+          netWeight18KT: product.netWeight18KT
         });
         updatedProducts.push(await newProduct.save());
       }
@@ -98,4 +102,20 @@ router.get("/get_upload", async (req, res) => {
 });
 
 
+
+router.get("/get_id/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Upload.findById(id); // Use the correct model (Upload)
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(product); // Send the product as JSON
+  } catch (error) {
+    console.error("Error fetching product by ID:", error);
+    res.status(500).json({ message: "Error fetching product" });
+  }
+});
 module.exports = router;

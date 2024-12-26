@@ -1,14 +1,6 @@
 [
   {
-    "_id": "676bc5c4f5f4d0085d2cee79",
-    "title": "Product1",
-    "price": 1000,
-    "image01": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/J/R/JR08996-1RP900_12_listhover.jpg",
-    "category": "Ring",
-    "__v": 0
-  },
-  {
-    "_id": "676be3cc75be7b0612af45f8",
+    "_id": "676cff62acc52acf4097dde6",
     "id": "SKU001",
     "title": "Ring",
     "price14KT": 6311,
@@ -19,28 +11,12 @@
     "makingCharge14KT": 2085,
     "makingCharge18KT": 2452.5,
     "grossWt": 3.4,
+    "netWeight14KT": 1.39,
+    "netWeight18KT": 1.635,
     "gst14KT": 7789.38,
     "gst18KT": 7897,
-    "total14KT": 264554,
-    "total18KT": 271155.5,
-    "__v": 0
-  },
-  {
-    "_id": "676bf58e774923f72d63270d",
-    "id": "SKU12345",
-    "title": "Gold Ring",
-    "price14KT": 20000,
-    "price18KT": 25000,
-    "image01": "https://jewelbox.co.in/wp-content/uploads/2024/01/WRI07481yg-1-2.jpg",
-    "category": "Jewelry",
-    "diamondprice": 5000,
-    "makingCharge14KT": 2000,
-    "makingCharge18KT": 2500,
-    "grossWt": 8,
-    "gst14KT": 1200,
-    "gst18KT": 1500,
-    "total14KT": 28200,
-    "total18KT": 32500,
+    "total14KT": 267435.38,
+    "total18KT": 271150.5,
     "__v": 0
   }
 ]
