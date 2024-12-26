@@ -6,7 +6,6 @@ const UploadSchema = new mongoose.Schema({
   price14KT: { type: Number, required: true },
   price18KT: { type: Number, required: true },
   image01: { type: String, required: true }, 
-  image01: { type: String, required: true },
   category: { type: String, required: true },
   diamondprice: { type: Number, required: true },
   makingCharge14KT: { type: Number, required: true },
