@@ -52,17 +52,6 @@ module.exports.getWishlist = async (req, res) => {
 
     let wishlist = await wishlistSchema.findOne({ userId }).populate("products.productId");
 
-    // const updatedWishlist = {
-    //   wishlist_id: wishlist._id,
-    //   ...wishlist.toObject(),
-    //   _id: undefined,
-
-    //   products: wishlist.products.map(product => {
-    //     const { _id, ...body } = product.toObject();
-    //     return { product_id: product.productId._id, ...body };
-    //   })
-    // };
-
     const updatedWishlist = {
       wishlist_id: wishlist._id,
       ...wishlist.toObject(),
@@ -116,8 +105,13 @@ module.exports.removeFromWishlist = async (req, res) => {
     if (productIndex === -1) {
       return res.status(404).send({ status: false, message: "Product not found in wishlist" });
     }
-
+    
     wishlist.products.splice(productIndex, 1);
+
+    if (wishlist.products.length === 0) {
+      await wishlistSchema.deleteOne({ userId });
+      return res.status(200).send({ status: true, message: "Wishlist is now empty" });
+    }
 
     await wishlist.save();
     return res.status(200).send({ status: true, message: "Product removed from wishlist", wishlist });

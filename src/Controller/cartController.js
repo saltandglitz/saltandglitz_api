@@ -155,8 +155,7 @@ module.exports.getCart = async (req, res) => {
             ...cart.toObject(),
 
             quantity: cart.quantity.map(product => {
-                const { _id, productId, ...body } = product.toObject();  // Extract productId and other fields
-
+                const { _id, productId, ...body } = product.toObject();
                 return {
                     _id: undefined,
                     ...body,
