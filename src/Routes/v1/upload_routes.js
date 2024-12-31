@@ -90,7 +90,7 @@ router.get("/get_upload", async (req, res) => {
     // Modify the products array to rename _id to product_id
     const updatedProducts = products.map(product => {
       const { _id, ...body } = product.toObject();
-      return { product_id: _id, ...body };
+      return { product_id: _id, _id, ...body };
     });
 
     // Send the modified products array as response
