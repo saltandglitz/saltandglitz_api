@@ -85,6 +85,7 @@ module.exports.addToCart = async (req, res) => {
 
     console.log(req.body);
 
+    // Validate the user and product IDs
     if (!user || !isValidObjectId(user)) {
         return res.status(400).send({ status: false, message: "Invalid user ID" });
     }
@@ -93,43 +94,67 @@ module.exports.addToCart = async (req, res) => {
         return res.status(400).send({ status: false, message: "Invalid product ID" });
     }
 
+    // Check if the user exists in the database
     let existingUser = await User.exists({ _id: user });
     if (!existingUser) {
         return res.status(400).send({ status: false, message: "User not found" });
     }
 
+    // Check if the product exists in the database
     let upload = await Uplod.exists({ _id: product });
-
     if (!upload) {
         return res.status(400).send({ status: false, message: "Product not found" });
     }
 
+    // Find the user's cart
     let cart = await cartSchema.findOne({ userId: user });
 
     if (cart) {
-        let productIndex = cart.quantity.findIndex((item) => item.productId.toString() === product.toString());
+        let productIndex = cart.quantity.findIndex(item => item.productId.toString() === product.toString());
 
         if (productIndex > -1) {
             cart.quantity[productIndex].quantity += quantity || 1;
         } else {
-            cart.quantity.push({ productId: product || 1 });
+            // If the product doesn't exist, add it to the cart
+            cart.quantity.push({ productId: product, quantity: quantity || 1 });
         }
 
         // Save the updated cart
         await cart.save();
-        return res.status(200).send({ status: true, updatedCart: cart });
+
+        // Return the updated cart response
+        const updatedCart = {
+            cart_id: cart._id,
+            userId: cart.userId,
+            quantity: cart.quantity.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity
+            }))
+        };
+
+        return res.status(200).send({ status: true, updatedCart });
     } else {
+        // If the cart doesn't exist, create a new cart
         const newCart = await cartSchema.create({
             userId: user,
-            quantity: [{ productId: product, quantity: quantity || 1 }],
+            quantity: [{ productId: product, quantity: quantity || 1 }]
         });
 
-        return res.status(201).send({ status: true, newCart: newCart });
+        // Return the newly created cart
+        const newCartResponse = {
+            cart_id: newCart._id,
+            userId: newCart.userId,
+            quantity: newCart.quantity.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity
+            }))
+        };
+
+        return res.status(201).send({ status: true, newCart: newCartResponse });
     }
 };
 
 
-// const { isValidObjectId } = require("mongoose");
 
 module.exports.getCart = async (req, res) => {
     let { user } = req.params;
@@ -149,10 +174,10 @@ module.exports.getCart = async (req, res) => {
             return res.status(404).send({ status: false, message: "Cart is empty" });
         }
 
-        // Rename _id to cart_id and handle cart data
         const updatedCart = {
             cart_id: cart._id,
             ...cart.toObject(),
+            _id: undefined,
 
             quantity: cart.quantity.map(product => {
                 const { _id, productId, ...body } = product.toObject();
@@ -204,26 +229,37 @@ module.exports.removeItemFromCart = async (req, res) => {
             return res.status(404).send({ status: false, message: "Cart is empty" });
         }
 
-        let updatedCart = await cartSchema.findOneAndUpdate(
-            { userId: user },
-            { $pull: { quantity: { productId: product } } },
-            { new: true }
-        );
+        let productIndex = cart.quantity.findIndex(item => item.productId.toString() === product.toString());
 
-
-        if (!updatedCart) {
+        if (productIndex === -1) {
             return res.status(404).send({ status: false, message: "Product not found in cart" });
         }
 
-        if (updatedCart.quantity.length === 0) {
-            await cartSchema.findByIdAndDelete(updatedCart._id);
+        cart.quantity.splice(productIndex, 1);
+
+        if (cart.quantity.length === 0) {
+            await cartSchema.findByIdAndDelete(cart._id);
             return res.status(200).send({ status: true, message: "Cart is now empty" });
         }
+
+        await cart.save();
+
+        const updatedCartResponse = {
+            cart_id: cart._id,  
+            userId: cart.userId,
+            products: cart.quantity.map(item => {
+                const { _id, ...productDetails } = item.toObject();
+                return {
+                    ...productDetails,
+                    productId: item.productId,
+                };
+            })
+        };
 
         return res.status(200).send({
             status: true,
             message: "Product removed from cart successfully",
-            updatedCart: updatedCart
+            updatedCart: updatedCartResponse
         });
 
     } catch (err) {
