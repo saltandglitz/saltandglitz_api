@@ -41,11 +41,13 @@ router.post("/post_upload", async (req, res) => {
         existingProduct.grossWt = product.grossWt;
         existingProduct.netWeight14KT = product.netWeight14KT;
         existingProduct.netWeight18KT = product.netWeight18KT;
+        existingProduct.gender = product.gender;
         updatedProducts.push(await existingProduct.save());
       } else {
         // If the product doesn't exist, insert a new product
         const newProduct = new Upload({
           title: product.title,
+          gender: product.gender,
           price14KT: product.price14KT,
           price18KT: product.price18KT,
           image01: product.img,

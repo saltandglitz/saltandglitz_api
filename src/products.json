@@ -16,8 +16,8 @@
     "gst14KT": 7789.38,
     "gst18KT": 7897,
     "total14KT": 267435.38,
-    "total18KT": 271150.5,
-    "__v": 0
+    "__v": 0,
+    "gender": "Male"
   },
   {
     "_id": "67738fef55b10ab905bc6e3f",
@@ -36,8 +36,8 @@
     "gst14KT": 7789,
     "gst18KT": 7897,
     "total14KT": 268013,
-    "total18KT": 273104.8,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "67738fef55b10ab905bc6e42",
@@ -56,8 +56,8 @@
     "gst14KT": 8685,
     "gst18KT": 8954,
     "total14KT": 276912,
-    "total18KT": 278516,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "67738ff055b10ab905bc6e45",
@@ -76,8 +76,8 @@
     "gst14KT": 12587,
     "gst18KT": 13256,
     "total14KT": 299276,
-    "total18KT": 305412,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "67738ff055b10ab905bc6e48",
@@ -96,8 +96,8 @@
     "gst14KT": 7621,
     "gst18KT": 8542,
     "total14KT": 267550,
-    "total18KT": 270977,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "67738ff055b10ab905bc6e4b",
@@ -116,8 +116,8 @@
     "gst14KT": 8745,
     "gst18KT": 9745,
     "total14KT": 275043,
-    "total18KT": 282062,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "67738ff255b10ab905bc6e4e",
@@ -136,8 +136,8 @@
     "gst14KT": 4567,
     "gst18KT": 5621,
     "total14KT": 264734,
-    "total18KT": 268393,
-    "__v": 0
+    "__v": 0,
+    "gender": "Male"
   },
   {
     "_id": "67738ff255b10ab905bc6e51",
@@ -156,8 +156,8 @@
     "gst14KT": 9845,
     "gst18KT": 10245,
     "total14KT": 285131,
-    "total18KT": 289842,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "67738ff555b10ab905bc6e54",
@@ -176,8 +176,8 @@
     "gst14KT": 3621,
     "gst18KT": 4785,
     "total14KT": 260914,
-    "total18KT": 264545,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   },
   {
     "_id": "6773914feaad8982688aeb34",
@@ -196,7 +196,7 @@
     "gst14KT": 7845,
     "gst18KT": 8654,
     "total14KT": 268818,
-    "total18KT": 274286,
-    "__v": 0
+    "__v": 0,
+    "gender": "Female"
   }
 ]
