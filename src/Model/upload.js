@@ -17,7 +17,7 @@ const UploadSchema = new mongoose.Schema({
   gst14KT: { type: Number, required: true },
   gst18KT: { type: Number, required: true },
   total14KT: { type: Number, required: true },
-  total18KT: { type: Number},
+  total18KT: { type: Number, required: true},
 });
 
 const Upload = mongoose.model("Upload", UploadSchema);

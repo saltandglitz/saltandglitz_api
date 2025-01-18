@@ -103,8 +103,6 @@ router.get("/get_upload", async (req, res) => {
   }
 });
 
-
-
 router.get("/get_id/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -120,4 +118,28 @@ router.get("/get_id/:id", async (req, res) => {
     res.status(500).json({ message: "Error fetching product" });
   }
 });
+
+router.get("/get_similar/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Current product ID
+    const currentProduct = await Upload.findById(id); // Fetch the current product
+
+    if (!currentProduct) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Fetch products of the same category excluding the current product
+    const similarProducts = await Upload.find({
+      category: currentProduct.category,
+      _id: { $ne: id }, // Exclude current product
+    });
+
+    res.status(200).json(similarProducts);
+  } catch (error) {
+    console.error("Error fetching similar products:", error);
+    res.status(500).json({ message: "Failed to fetch similar products" });
+  }
+});
+
+
 module.exports = router;
