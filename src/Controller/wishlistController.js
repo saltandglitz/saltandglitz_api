@@ -67,9 +67,6 @@ module.exports.addToWishlist = async (req, res) => {
   }
 };
 
-
-
-
 module.exports.getWishlist = async (req, res) => {
   const { userId } = req.params;
 
@@ -164,4 +161,3 @@ module.exports.removeFromWishlist = async (req, res) => {
     return res.status(500).send({ status: false, message: err.message });
   }
 };
-

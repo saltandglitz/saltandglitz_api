@@ -119,6 +119,7 @@ router.get("/get_id/:id", async (req, res) => {
   }
 });
 
+// category wise product show
 router.get("/get_similar/:id", async (req, res) => {
   try {
     const { id } = req.params; // Current product ID
