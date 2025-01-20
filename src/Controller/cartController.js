@@ -168,7 +168,7 @@ module.exports.getCart = async (req, res) => {
             return res.status(404).send({ status: false, message: "User not found" });
         }
         let cart = await cartSchema.findOne({ userId: user }).populate('quantity.productId');
-        console.log(cart.quantity);
+        // console.log(cart.quantity);
 
         if (!cart) {
             return res.status(404).send({ status: false, message: "Cart is empty" });
@@ -194,11 +194,11 @@ module.exports.getCart = async (req, res) => {
 
 
         };
-        console.log(updatedCart.quantity.length);
+        // console.log(updatedCart.quantity.length);
 
         const totalQuantity = cart.quantity.reduce((sum, item) => sum + item.quantity, 0)
 
-        console.log(totalQuantity);
+        // console.log(totalQuantity);
 
 
 
