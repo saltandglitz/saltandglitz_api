@@ -2,6 +2,7 @@ const express = require("express");
 const Upload = require("../../Model/upload");
 const fs = require("fs");
 const path = require("path");
+const { uploadController } = require("../../Controller");
 const router = express.Router();
 
 // Path to save products.json
@@ -102,6 +103,39 @@ router.get("/get_upload", async (req, res) => {
 });
 
 
+router.get("/get_upload_byGender", async (req, res) => {
+  try {
+    // Fetch all products from MongoDB
+    const products = await Upload.find();
+
+    // Separate products into male and female categories
+    const maleProducts = products.filter(product => product.gender === "male");
+    const femaleProducts = products.filter(product => product.gender === "female");
+
+    // Modify the products arrays to rename _id to product_id
+    const updatedMaleProducts = maleProducts.map(product => {
+      const { _id, ...body } = product.toObject();
+      return { product_id: _id, ...body };
+    });
+
+    const updatedFemaleProducts = femaleProducts.map(product => {
+      const { _id, ...body } = product.toObject();
+      return { product_id: _id, ...body };
+    });
+
+    // Send the modified male and female products arrays as response
+    res.status(200).json({
+      maleProducts: updatedMaleProducts,
+      femaleProducts: updatedFemaleProducts
+    });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ message: "Error fetching products" });
+  }
+});
+
+
+
 
 router.get("/get_id/:id", async (req, res) => {
   try {
@@ -118,4 +152,7 @@ router.get("/get_id/:id", async (req, res) => {
     res.status(500).json({ message: "Error fetching product" });
   }
 });
+
+
+router.post("/filterProduct", uploadController.filterProducts)
 module.exports = router;

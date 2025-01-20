@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const UploadSchema = new mongoose.Schema({
-  id: { type: String, required: true }, // SKU field
+  id: { type: String, required: true }, 
   title: { type: String, required: true },
   price14KT: { type: Number, required: true },
   price18KT: { type: Number, required: true },
