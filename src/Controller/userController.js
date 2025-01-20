@@ -33,7 +33,7 @@ exports.registerUser = async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(201).json({ message: 'User registered successfully', user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -71,7 +71,7 @@ exports.loginUser = async (req, res) => {
 exports.getUserProfile = async (req, res) => {
   try {
     // Find user by ID from the decoded token
-    const user = await User.findById  (req.user).select('-password'); // Exclude password from the response
+    const user = await User.findById(req.user).select('-password'); // Exclude password from the response
     // console.log('User ID:', req.user);
     // console.log('Fetched User:', user);
 
@@ -110,7 +110,7 @@ exports.googleLoginUser = async (req, res) => {
         gender: '',      // Gender can be set on the frontend after registration
       });
       await user.save();
-    } 
+    }
 
     // Generate JWT for the user
     const jwtToken = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });

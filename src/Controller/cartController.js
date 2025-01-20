@@ -191,12 +191,22 @@ module.exports.getCart = async (req, res) => {
                     }
                 };
             })
+
+
         };
+        console.log(updatedCart.quantity.length);
+
+        const totalQuantity = cart.quantity.reduce((sum, item) => sum + item.quantity, 0)
+
+        console.log(totalQuantity);
+
+
 
         return res.status(200).send({
             status: true,
             message: "Cart fetched successfully",
-            cart: updatedCart
+            cart: updatedCart,
+            totalQuantity: totalQuantity
         });
 
     } catch (err) {
@@ -245,7 +255,7 @@ module.exports.removeItemFromCart = async (req, res) => {
         await cart.save();
 
         const updatedCartResponse = {
-            cart_id: cart._id,  
+            cart_id: cart._id,
             userId: cart.userId,
             products: cart.quantity.map(item => {
                 const { _id, ...productDetails } = item.toObject();
