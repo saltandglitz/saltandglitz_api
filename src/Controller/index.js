@@ -1,0 +1,10 @@
+
+module.exports.ShippingController = require("./Shipping_controller")
+module.exports.Admin_Controller = require("./admin_controller")
+// module.exports.Wishlist_controller = require('./wishlistController')
+module.exports.cartController = require("./cartController")
+module.exports.wishlistController = require("./wishlistController")
+module.exports.bannerController = require("./banner.controller")
+module.exports.uploadController = require("./upload.controller")
+module.exports.categoryDataController = require("./categoryData.controller")
+module.exports.optController = require("./otp.controller")
