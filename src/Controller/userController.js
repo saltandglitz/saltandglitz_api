@@ -8,9 +8,9 @@ const JWT_SECRET = process.env.JWT_SECRET || 'SALTANDGLITZ';
 
 // User registration
 exports.registerUser = async (req, res) => {
-  const { name, email, password, gender } = req.body;
+  const { firstName, lastName, email, password, gender, mobileNumber } = req.body;
 
-  if (!name || !email || !password || !gender) {
+  if (!firstName || !lastName || !email || !password || !gender || !mobileNumber) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -24,16 +24,28 @@ exports.registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+
     // Create new user
     user = new User({
-      name,
+      firstName,
+      lastName,
+      mobileNumber,
       email,
       password: hashedPassword,
-      gender
+      gender,
     });
 
+
+    let token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    console.log(token);
+
+    user.token = token
+
     await user.save();
-    res.status(201).json({ message: 'User registered successfully', user });
+    res.status(201).json({
+      message: 'User registered successfully',
+      user: user
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });
@@ -104,7 +116,8 @@ exports.googleLoginUser = async (req, res) => {
     // Register the user if they don't exist
     if (!user) {
       user = new User({
-        name,
+        firstName,
+        lastName,
         email,
         password: null,  // No password for Google sign-in users
         gender: '',      // Gender can be set on the frontend after registration

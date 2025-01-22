@@ -63,19 +63,26 @@ module.exports.filterProducts = async (req, res) => {
 
         if (discountLimit) {
             let discountRange;
-            if (discountLimit === "above30%") {
-                discountRange = { discount: { $gte: 30 } }
+            if (discountLimit === "morethen50%") {
+                discountRange = { discount: { $gte: 50 } }
             }
-            if (discountLimit === "between25%To30%") {
-                discountRange = { discount: { $lt: 30, gte: 25 } }
+            if (discountLimit === "between40%to50%") {
+                discountRange = { discount: { $lt: 50, gte: 40 } }
             }
-            if (discountLimit === "between15%To25%") {
-                discountRange = { discount: { $lt: 25, $gte: 15 } }
+            if (discountLimit === "between30%To40%") {
+                discountRange = { discount: { $lt: 30, $gte: 40 } }
+            }
+            if (discountLimit === "between30%to20%") {
+                discountRange = { discount: { $lt: 20, $gte: 30 } }
             }
 
             if (discountRange) {
                 aggrigationPipeline.push({ $match: discountRange })
             }
+        }
+
+        if (sortBy === "newestFirst") {
+            aggrigationPipeline.push({ $sort: { createdAt: -1 } })
         }
 
         if (priceOrder) {

@@ -11,6 +11,7 @@ const productRoutes = require('./Product');
 const uploadRoutes = require('./upload_routes');
 const bannerRoute = require("./banner.routes")
 const getCategoryRoute = require("./categoryData.routes")
+const otpRoute = require("./otp.routes")
 
 const router = express();
 
@@ -24,7 +25,8 @@ router.use("/banner", bannerRoute)
 router.use("/wishlist", wishlistRoute)
 router.use('/product', productRoutes);
 router.use('/upload', uploadRoutes);
-router.use("/category", getCategoryRoute)
+router.use("/category", getCategoryRoute);
+router.use("/otp", otpRoute)
 
 
 module.exports = router;

@@ -21,7 +21,9 @@
 // };
 
 
-const { Uplod } = require("../Model");
+const { default: axios } = require("axios");
+const { Uplod, wishlistSchema, cartSchema } = require("../Model");
+// const { getBanner } = require("./banner.controller");
 
 // let { category } = req.params
 
@@ -90,13 +92,117 @@ const { Uplod } = require("../Model");
 //         res.status(500).json({ message: "Error processing your request.", error: err.message });
 //     }
 // };
-
 module.exports.getCategoryData = async (req, res) => {
     try {
+
         const { gender = "Female" } = req.params;
 
         let categories = [];
+        let mergedProducts = [];
 
+        // Step 1: Fetch cart data based on gender
+        let getCart = await cartSchema.aggregate([
+            {
+                $unwind: "$quantity"
+            },
+            {
+                $addFields: {
+                    "quantity.productId": {
+                        $toObjectId: "$quantity.productId"
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: "$quantity.productId"
+                }
+            },
+            {
+                $lookup: {
+                    from: "uploads",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "productDetails"
+                }
+            },
+            {
+                $unwind: "$productDetails"
+            },
+            {
+                $match: { "productDetails.gender": gender } // Filter by gender here
+            },
+            {
+                $project: {
+                    _id: 0,
+                    productId: "$_id",
+                    title: "$productDetails.title",
+                    price14KT: "$productDetails.price14KT",
+                    image01: "$productDetails.image01",
+                    category: "$productDetails.category",
+                    subCategory: "$productDetails.subCategory"
+                }
+            }
+        ]);
+
+        // Step 2: Fetch wishlist data based on gender
+        let getWishlist = await wishlistSchema.aggregate([
+            {
+                $unwind: "$products"
+            },
+            {
+                $addFields: {
+                    "products.productId": {
+                        $toObjectId: "$products.productId"
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: "$products.productId"
+                }
+            },
+            {
+                $lookup: {
+                    from: "uploads",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "productDetails"
+                }
+            },
+            {
+                $unwind: "$productDetails"
+            },
+            {
+                $match: { "productDetails.gender": gender } // Filter by gender here
+            },
+            {
+                $project: {
+                    _id: 0,
+                    productId: "$_id",
+                    title: "$productDetails.title",
+                    price14KT: "$productDetails.price14KT",
+                    image01: "$productDetails.image01",
+                    category: "$productDetails.category",
+                    subCategory: "$productDetails.subCategory"
+                }
+            }
+        ]);
+
+        // Merge cart and wishlist based on gender
+        mergedProducts = [...getCart, ...getWishlist];
+
+        // Ensure mergedProducts follow the category structure
+        mergedProducts = mergedProducts.map(product => {
+            return {
+                category: product.category,
+                categoryImage: product.image01, // assuming image01 represents category image
+                subCategories: {
+                    [product.subCategory]: [product]
+                }
+            };
+        });
+
+        // Step 3: Fetch categories based on gender
         if (gender === "Male") {
             const maleCategories = await Uplod.distinct("category", { gender: "Male" });
 
@@ -118,9 +224,6 @@ module.exports.getCategoryData = async (req, res) => {
                     }
                 ]);
                 if (categoryData.length > 0) {
-                    const allPrices = categoryData[0].subCategories.map(subcategory => subcategory.product.total14KT);
-
-                    // Dynamically create subcategory keys as top-level fields
                     const subCategoryGroups = categoryData[0].subCategories.reduce((acc, { subCategory, product }) => {
                         if (!acc[subCategory]) {
                             acc[subCategory] = [];
@@ -151,7 +254,6 @@ module.exports.getCategoryData = async (req, res) => {
                             categoryImage: { $first: "$image01" },
                             subCategories: {
                                 $push: {
-                                    subCategory: "$subCategory",
                                     product: "$$ROOT"
                                 }
                             }
@@ -159,9 +261,6 @@ module.exports.getCategoryData = async (req, res) => {
                     }
                 ]);
                 if (categoryData.length > 0) {
-                    const allPrices = categoryData[0].subCategories.map(subcategory => subcategory.product.total14KT);
-
-                    // Dynamically create subcategory keys as top-level fields
                     const subCategoryGroups = categoryData[0].subCategories.reduce((acc, { subCategory, product }) => {
                         if (!acc[subCategory]) {
                             acc[subCategory] = [];
@@ -181,10 +280,18 @@ module.exports.getCategoryData = async (req, res) => {
             categories = femaleCategoryDetails;
         }
 
+        // Step 4: Fetch banners
+        const bannerResponse = await axios.get("https://saltandglitz-api.vercel.app/v1/banner/bannerGet");
+        let banner = bannerResponse.data.banners;
+
+        
+
         return res.status(200).json({
             message: `Category data fetched successfully for ${gender.toLowerCase()}s.`,
             categories,
-            genders: gender === "Female" ? ["Female", "Male"] : undefined
+            genders: gender === "Female" ? ["Female", "Male"] : undefined,
+            banners: banner || [],
+            mergedProducts
         });
 
     } catch (err) {
@@ -192,3 +299,4 @@ module.exports.getCategoryData = async (req, res) => {
         res.status(500).json({ message: "Error processing your request.", error: err.message });
     }
 };
+
