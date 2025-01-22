@@ -18,7 +18,9 @@
     "total14KT": 267435.38,
     "__v": 0,
     "gender": "Male",
-    "total18KT": 271150.5
+    "total18KT": 271150.5,
+    "subCategory": "abc",
+    "discount": 20
   },
   {
     "_id": "67738fef55b10ab905bc6e3f",
@@ -39,7 +41,9 @@
     "total14KT": 268013,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 273104.8
+    "total18KT": 273104.8,
+    "discount": 25,
+    "subCategory": "xyz"
   },
   {
     "_id": "67738fef55b10ab905bc6e42",
@@ -60,7 +64,9 @@
     "total14KT": 276912,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 278516
+    "total18KT": 278516,
+    "discount": 22,
+    "subCategory": "abc"
   },
   {
     "_id": "67738ff055b10ab905bc6e45",
@@ -81,7 +87,9 @@
     "total14KT": 299276,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 305412
+    "total18KT": 305412,
+    "discount": 32,
+    "subCategory": "xyz"
   },
   {
     "_id": "67738ff055b10ab905bc6e48",
@@ -102,7 +110,9 @@
     "total14KT": 267550,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 270977
+    "total18KT": 270977,
+    "discount": 28,
+    "subCategory": "xyz"
   },
   {
     "_id": "67738ff055b10ab905bc6e4b",
@@ -123,7 +133,9 @@
     "total14KT": 275043,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 282062
+    "total18KT": 282062,
+    "discount": 30,
+    "subCategory": "xyz"
   },
   {
     "_id": "67738ff255b10ab905bc6e4e",
@@ -144,7 +156,9 @@
     "total14KT": 264734,
     "__v": 0,
     "gender": "Male",
-    "total18KT": 268393
+    "total18KT": 268393,
+    "discount": 25,
+    "subCategory": "xyz"
   },
   {
     "_id": "67738ff255b10ab905bc6e51",
@@ -165,7 +179,9 @@
     "total14KT": 285131,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 289842
+    "total18KT": 289842,
+    "discount": 15,
+    "subCategory": "mbk"
   },
   {
     "_id": "67738ff555b10ab905bc6e54",
@@ -186,7 +202,9 @@
     "total14KT": 260914,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 264545
+    "total18KT": 264545,
+    "discount": 35,
+    "subCategory": "xyz"
   },
   {
     "_id": "6773914feaad8982688aeb34",
@@ -207,6 +225,8 @@
     "total14KT": 268818,
     "__v": 0,
     "gender": "Female",
-    "total18KT": 274286
+    "total18KT": 274286,
+    "discount": 25,
+    "subCategory": "xyz"
   }
 ]
