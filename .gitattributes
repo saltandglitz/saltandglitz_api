@@ -1,1 +1,6 @@
+<<<<<<< HEAD
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+=======
 latest_SaltAndGlitz_API.zip filter=lfs diff=lfs merge=lfs -text
+>>>>>>> abd552d18a032cf828b14a0a81fdf2ea13d9f418

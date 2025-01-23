@@ -154,8 +154,6 @@ module.exports.addToCart = async (req, res) => {
     }
 };
 
-
-
 module.exports.getCart = async (req, res) => {
     let { user } = req.params;
     if (!user || !isValidObjectId(user)) {
@@ -218,7 +216,6 @@ module.exports.getCart = async (req, res) => {
     }
 };
 
-
 module.exports.removeItemFromCart = async (req, res) => {
     let { user, product } = req.params;
 
@@ -280,6 +277,71 @@ module.exports.removeItemFromCart = async (req, res) => {
         return res.status(500).send({ status: false, message: err.message });
     }
 };
+
+// module.exports.updateQuantity = async (req, res) => {
+//     const { user, product } = req.params;
+//     const { operation } = req.body; // "increment" or "decrement"
+
+//     if (!user || !isValidObjectId(user)) {
+//         return res.status(400).send({ status: false, message: "Invalid user ID" });
+//     }
+
+//     if (!product || !isValidObjectId(product)) {
+//         return res.status(400).send({ status: false, message: "Invalid product ID" });
+//     }
+
+//     try {
+//         let cart = await cartSchema.findOne({ userId: user });
+
+//         if (!cart) {
+//             return res.status(404).send({ status: false, message: "Cart not found" });
+//         }
+
+//         const productIndex = cart.quantity.findIndex(item => item.productId.toString() === product.toString());
+
+//         if (productIndex === -1) {
+//             return res.status(404).send({ status: false, message: "Product not found in cart" });
+//         }
+
+//         if (operation === "increment") {
+//             cart.quantity[productIndex].quantity += 1;
+//         } else if (operation === "decrement") {
+//             cart.quantity[productIndex].quantity -= 1;
+
+//             if (cart.quantity[productIndex].quantity <= 0) {
+//                 cart.quantity.splice(productIndex, 1);
+//             }
+//         } else {
+//             return res.status(400).send({ status: false, message: "Invalid operation" });
+//         }
+
+//         if (cart.quantity.length === 0) {
+//             await cartSchema.findByIdAndDelete(cart._id);
+//             return res.status(200).send({ status: true, message: "Cart is now empty" });
+//         }
+
+//         await cart.save();
+
+//         const updatedCartResponse = {
+//             cart_id: cart._id,
+//             userId: cart.userId,
+//             products: cart.quantity.map(item => ({
+//                 productId: item.productId,
+//                 quantity: item.quantity
+//             }))
+//         };
+
+//         return res.status(200).send({
+//             status: true,
+//             message: `Product quantity ${operation === "increment" ? "increased" : "decreased"} successfully`,
+//             updatedCart: updatedCartResponse
+//         });
+
+//     } catch (err) {
+//         console.error(err);
+//         return res.status(500).send({ status: false, message: err.message });
+//     }
+// };
 
 
 module.exports.incrementQuantity = async (req, res) => {

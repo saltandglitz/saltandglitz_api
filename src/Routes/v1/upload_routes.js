@@ -27,45 +27,48 @@ router.post("/post_upload", async (req, res) => {
       });
 
       if (existingProduct) {
-        // If the product exists, update it
         existingProduct.price14KT = product.price14KT;
         existingProduct.price18KT = product.price18KT;
         existingProduct.image01 = product.img;
+        existingProduct.image02 = product.image02;
+        existingProduct.image03 = product.image03;
+        existingProduct.video = product.video;
         existingProduct.category = product.category;
         existingProduct.diamondprice = product.diamondprice;
         existingProduct.makingCharge14KT = product.makingCharge14KT;
         existingProduct.makingCharge18KT = product.makingCharge18KT;
+        existingProduct.grossWt = product.grossWt;
+        existingProduct.netWeight14KT = product.netWeight14KT;
+        existingProduct.netWeight18KT = product.netWeight18KT;
         existingProduct.gst14KT = product.gst14KT;
         existingProduct.gst18KT = product.gst18KT;
         existingProduct.total14KT = product.total14KT;
         existingProduct.total18KT = product.total18KT;
-        existingProduct.grossWt = product.grossWt;
-        existingProduct.netWeight14KT = product.netWeight14KT;
-        existingProduct.netWeight18KT = product.netWeight18KT;
-        existingProduct.gender = product.gender;
-        updatedProducts.push(await existingProduct.save());
+        await existingProduct.save();
       } else {
-        // If the product doesn't exist, insert a new product
         const newProduct = new Upload({
+          id: product.id,
           title: product.title,
           gender: product.gender,
           price14KT: product.price14KT,
           price18KT: product.price18KT,
           image01: product.img,
+          image02: product.image02,
+          image03: product.image03,
+          video: product.video,
           category: product.category,
-          id: product.id,
           diamondprice: product.diamondprice,
           makingCharge14KT: product.makingCharge14KT,
           makingCharge18KT: product.makingCharge18KT,
+          grossWt: product.grossWt,
+          netWeight14KT: product.netWeight14KT,
+          netWeight18KT: product.netWeight18KT,
           gst14KT: product.gst14KT,
           gst18KT: product.gst18KT,
           total14KT: product.total14KT,
           total18KT: product.total18KT,
-          grossWt: product.grossWt,
-          netWeight14KT: product.netWeight14KT,
-          netWeight18KT: product.netWeight18KT
         });
-        updatedProducts.push(await newProduct.save());
+        await newProduct.save();
       }
     }
 

@@ -5,7 +5,7 @@
     "title": "Ring",
     "price14KT": 6311,
     "price18KT": 9551,
-    "image01": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/J/R/JR03296-YGP600_11_listfront.jpg",
+    "image01": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_11_listfront.jpg",
     "category": "Ring",
     "diamondprice": 251250,
     "makingCharge14KT": 2085,
@@ -16,11 +16,15 @@
     "gst14KT": 7789.38,
     "gst18KT": 7897,
     "total14KT": 267435.38,
-    "__v": 0,
+    "__v": 1,
     "gender": "Male",
     "total18KT": 271150.5,
     "subCategory": "abc",
-    "discount": 20
+    "discount": 20,
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T11:47:38.035Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_16_video.mp4"
   },
   {
     "_id": "67738fef55b10ab905bc6e3f",
@@ -39,11 +43,15 @@
     "gst14KT": 7789,
     "gst18KT": 7897,
     "total14KT": 268013,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 273104.8,
     "discount": 25,
-    "subCategory": "xyz"
+    "subCategory": "abc",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T11:47:38.451Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/J/E/JE10226-1YP900_16_video.mp4"
   },
   {
     "_id": "67738fef55b10ab905bc6e42",
@@ -62,11 +70,15 @@
     "gst14KT": 8685,
     "gst18KT": 8954,
     "total14KT": 276912,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 278516,
     "discount": 22,
-    "subCategory": "abc"
+    "subCategory": "abc",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:53.591Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/J/T/JT01430-1YP6P0_16_video.mp4"
   },
   {
     "_id": "67738ff055b10ab905bc6e45",
@@ -85,11 +97,15 @@
     "gst14KT": 12587,
     "gst18KT": 13256,
     "total14KT": 299276,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 305412,
     "discount": 32,
-    "subCategory": "xyz"
+    "subCategory": "xyz",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:53.742Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/U/L/UL00338-YG00P0_16_video.mp4"
   },
   {
     "_id": "67738ff055b10ab905bc6e48",
@@ -108,11 +124,15 @@
     "gst14KT": 7621,
     "gst18KT": 8542,
     "total14KT": 267550,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 270977,
     "discount": 28,
-    "subCategory": "xyz"
+    "subCategory": "xyz",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:53.887Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/U/L/UL00338-YG00P0_16_video.mp4"
   },
   {
     "_id": "67738ff055b10ab905bc6e4b",
@@ -131,11 +151,15 @@
     "gst14KT": 8745,
     "gst18KT": 9745,
     "total14KT": 275043,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 282062,
     "discount": 30,
-    "subCategory": "xyz"
+    "subCategory": "xyz",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:54.069Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/J/B/JB01066-RGP600_16_video.mp4"
   },
   {
     "_id": "67738ff255b10ab905bc6e4e",
@@ -154,11 +178,15 @@
     "gst14KT": 4567,
     "gst18KT": 5621,
     "total14KT": 264734,
-    "__v": 0,
+    "__v": 1,
     "gender": "Male",
     "total18KT": 268393,
     "discount": 25,
-    "subCategory": "xyz"
+    "subCategory": "xyz",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:54.178Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/U/L/UL00338-YG00P0_16_video.mp4"
   },
   {
     "_id": "67738ff255b10ab905bc6e51",
@@ -177,11 +205,15 @@
     "gst14KT": 9845,
     "gst18KT": 10245,
     "total14KT": 285131,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 289842,
     "discount": 15,
-    "subCategory": "mbk"
+    "subCategory": "mbk",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:54.282Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/J/B/JB01066-RGP600_16_video.mp4"
   },
   {
     "_id": "67738ff555b10ab905bc6e54",
@@ -200,11 +232,15 @@
     "gst14KT": 3621,
     "gst18KT": 4785,
     "total14KT": 260914,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 264545,
     "discount": 35,
-    "subCategory": "xyz"
+    "subCategory": "xyz",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:54.444Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/J/S/JS01112-1YP600_16_video.mp4"
   },
   {
     "_id": "6773914feaad8982688aeb34",
@@ -223,10 +259,40 @@
     "gst14KT": 7845,
     "gst18KT": 8654,
     "total14KT": 268818,
-    "__v": 0,
+    "__v": 1,
     "gender": "Female",
     "total18KT": 274286,
     "discount": 25,
-    "subCategory": "xyz"
+    "subCategory": "xyz",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "updatedAt": "2025-01-22T12:10:54.568Z",
+    "video": "https://cdn.caratlane.com/media/catalog/product/J/E/JE10226-1YP900_16_video.mp4"
+  },
+  {
+    "_id": "6790d62f162fd5cb9ea5516a",
+    "id": "SKU0011",
+    "title": "Earring",
+    "gender": "Female",
+    "price14KT": 5517,
+    "price18KT": 7612,
+    "image01": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/J/E/JE10226-1YP900_11_listfront.jpg",
+    "image02": "https://cdn.caratlane.com/media/catalog/product/cache/6/image/480x480/9df78eab33525d08d6e5fb8d27136e95/S/R/SR04121-YGP900_12_listhover.jpg",
+    "image03": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_4_lar.jpg",
+    "video": "https://cdn.caratlane.com/media/catalog/product/S/R/SR04121-YGP900_16_video.mp4",
+    "category": "Earring",
+    "diamondprice": 251250,
+    "makingCharge14KT": 2456,
+    "makingCharge18KT": 3020,
+    "grossWt": 2.3,
+    "netWeight14KT": 1.8,
+    "netWeight18KT": 2.1,
+    "gst14KT": 7845,
+    "gst18KT": 8654,
+    "total14KT": 268818,
+    "total18KT": 274286,
+    "createdAt": "2025-01-22T11:27:43.947Z",
+    "updatedAt": "2025-01-22T12:10:54.696Z",
+    "__v": 1
   }
 ]
