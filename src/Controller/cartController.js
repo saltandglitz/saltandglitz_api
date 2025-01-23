@@ -197,6 +197,8 @@ module.exports.getCart = async (req, res) => {
         // console.log(updatedCart.quantity.length);
 
         const totalQuantity = cart.quantity.reduce((sum, item) => sum + item.quantity, 0)
+        const totalPrice = cart.quantity.reduce((sum, item) => sum + item.quantity * item.productId.total14KT, 0)
+        console.log(totalPrice);
 
         // console.log(totalQuantity);
 
@@ -206,7 +208,8 @@ module.exports.getCart = async (req, res) => {
             status: true,
             message: "Cart fetched successfully",
             cart: updatedCart,
-            totalQuantity: totalQuantity
+            totalQuantity: totalQuantity,
+            totalPrice: totalPrice
         });
 
     } catch (err) {
@@ -269,6 +272,131 @@ module.exports.removeItemFromCart = async (req, res) => {
         return res.status(200).send({
             status: true,
             message: "Product removed from cart successfully",
+            updatedCart: updatedCartResponse
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ status: false, message: err.message });
+    }
+};
+
+
+module.exports.incrementQuantity = async (req, res) => {
+    const { cartId, productId, quantity } = req.body;
+
+    // Validate input
+    if (!cartId || !isValidObjectId(cartId)) {
+        return res.status(400).send({ status: false, message: "Invalid cart ID" });
+    }
+
+    if (!productId || !isValidObjectId(productId)) {
+        return res.status(400).send({ status: false, message: "Invalid product ID" });
+    }
+
+    if (!quantity || quantity <= 0) {
+        return res.status(400).send({ status: false, message: "Quantity must be a positive number" });
+    }
+
+    try {
+        // Find the cart using cartId
+        let cart = await cartSchema.findById(cartId);
+
+        if (!cart) {
+            return res.status(404).send({ status: false, message: "Cart not found" });
+        }
+
+        // Find the product in the cart
+        let productIndex = cart.quantity.findIndex(item => item.productId.toString() === productId.toString());
+
+        if (productIndex === -1) {
+            return res.status(404).send({ status: false, message: "Product not found in cart" });
+        }
+
+        // Increment the product quantity
+        cart.quantity[productIndex].quantity += quantity;
+
+        // Save the updated cart
+        await cart.save();
+
+        // Return the updated cart
+        const updatedCartResponse = {
+            cart_id: cart._id,
+            userId: cart.userId,
+            quantity: cart.quantity.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity
+            }))
+        };
+
+        return res.status(200).send({
+            status: true,
+            message: "Product quantity incremented successfully",
+            updatedCart: updatedCartResponse
+        });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({ status: false, message: err.message });
+    }
+};
+
+
+
+module.exports.decrementQuantity = async (req, res) => {
+    const { cartId, productId, quantity } = req.body;
+
+    // Validate input
+    if (!cartId || !isValidObjectId(cartId)) {
+        return res.status(400).send({ status: false, message: "Invalid cart ID" });
+    }
+
+    if (!productId || !isValidObjectId(productId)) {
+        return res.status(400).send({ status: false, message: "Invalid product ID" });
+    }
+
+    if (!quantity || quantity <= 0) {
+        return res.status(400).send({ status: false, message: "Quantity must be a positive number" });
+    }
+
+    try {
+        // Find the cart using cartId
+        let cart = await cartSchema.findById(cartId);
+
+        if (!cart) {
+            return res.status(404).send({ status: false, message: "Cart not found" });
+        }
+
+        // Find the product in the cart
+        let productIndex = cart.quantity.findIndex(item => item.productId.toString() === productId.toString());
+
+        if (productIndex === -1) {
+            return res.status(404).send({ status: false, message: "Product not found in cart" });
+        }
+
+        // Decrement the product quantity, ensuring it does not go below 1
+        if (cart.quantity[productIndex].quantity > quantity) {
+            cart.quantity[productIndex].quantity -= quantity;
+        } else {
+            return res.status(400).send({ status: false, message: "Quantity can't be less than 1" });
+        }
+
+        // Save the updated cart
+        await cart.save();
+
+        // Return the updated cart
+        const updatedCartResponse = {
+            cart_id: cart._id,
+            userId: cart.userId,
+            quantity: cart.quantity.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity
+            }))
+        };
+
+        return res.status(200).send({
+            status: true,
+            message: "Product quantity decremented successfully",
             updatedCart: updatedCartResponse
         });
 

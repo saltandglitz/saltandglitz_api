@@ -13,6 +13,7 @@ module.exports.filterProducts = async (req, res) => {
         let filterProduct = {};
 
         if (title) filterProduct.title = title;
+        if (occasionBy) { filterProduct.subCategory = occasionBy; }
 
         if (typeBy) {
             if (typeBy === "male") {

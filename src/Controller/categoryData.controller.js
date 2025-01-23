@@ -197,7 +197,7 @@ module.exports.getCategoryData = async (req, res) => {
                 category: product.category,
                 categoryImage: product.image01, // assuming image01 represents category image
                 subCategories: {
-                    [product.subCategory]: [product]
+                    [product.subCategory]: [product] // Each product should be grouped under its subcategory
                 }
             };
         });
@@ -254,7 +254,8 @@ module.exports.getCategoryData = async (req, res) => {
                             categoryImage: { $first: "$image01" },
                             subCategories: {
                                 $push: {
-                                    product: "$$ROOT"
+                                    subCategory: "$subCategory",
+                                    product: "$$ROOT"  // Push the entire product document
                                 }
                             }
                         }
@@ -284,8 +285,6 @@ module.exports.getCategoryData = async (req, res) => {
         const bannerResponse = await axios.get("https://saltandglitz-api.vercel.app/v1/banner/bannerGet");
         let banner = bannerResponse.data.banners;
 
-        
-
         return res.status(200).json({
             message: `Category data fetched successfully for ${gender.toLowerCase()}s.`,
             categories,
@@ -300,3 +299,80 @@ module.exports.getCategoryData = async (req, res) => {
     }
 };
 
+
+
+module.exports.getCategoryAndSubCategoryDetails = async (req, res) => {
+    try {
+        // Step 1: Get all categories
+        const categories = await Uplod.distinct("category");
+
+        if (!categories || categories.length === 0) {
+            return res.status(404).json({ message: "No categories found." });
+        }
+
+        let categoryData = [];
+
+        for (const category of categories) {
+            // Step 2.1: Get distinct subcategories for each category
+            const subCategories = await Uplod.find({ category })
+                .distinct("subCategory");
+
+            if (subCategories.length > 0) {
+                let subCategoryDetails = [];
+
+                for (const subCategory of subCategories) {
+                    const products = await Uplod.find({ category, subCategory });
+
+                    if (products.length > 0) {
+                        let productDetails = [];
+
+                        // Step 2.2.2: For each product, fetch full product details
+                        for (const product of products) {
+                            productDetails.push({
+                                productId: product._id,
+                                productName: product.title,
+                                price14KT: product.price14KT,
+                                price18KT: product.price18KT,
+                                image: product.image01,
+                                category: product.category,
+                                subCategory: product.subCategory,
+                                diamondPrice: product.diamondprice,
+                                makingCharge14KT: product.makingCharge14KT,
+                                makingCharge18KT: product.makingCharge18KT,
+                                grossWeight: product.grossWt,
+                                netWeight14KT: product.netWeight14KT,
+                                netWeight18KT: product.netWeight18KT,
+                                gst14KT: product.gst14KT,
+                                gst18KT: product.gst18KT,
+                                total14KT: product.total14KT,
+                                total18KT: product.total18KT,
+                                discount: product.discount
+                            });
+                        }
+
+                        subCategoryDetails.push({
+                            subCategory: subCategory,
+                            subCategoryImage: products[0].image01,  // Assuming all products in a subcategory have the same image
+                            products: productDetails
+                        });
+                    }
+                }
+
+                categoryData.push({
+                    category: category,
+                    subCategories: subCategoryDetails,
+                });
+            }
+        }
+
+        // Step 3: Send the response
+        res.status(200).json({
+            message: "Category and subcategory details fetched successfully.",
+            categories: categoryData,
+        });
+
+    } catch (err) {
+        console.error("Error:", err);
+        res.status(500).json({ message: "Error processing your request.", error: err.message });
+    }
+};

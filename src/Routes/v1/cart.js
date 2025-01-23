@@ -130,6 +130,8 @@ const route = express.Router()
 route.post("/addCart", cartController.addToCart)
 route.get("/getCart/:user", cartController.getCart)
 route.delete("/remove/:user/:product", cartController.removeItemFromCart)
+route.post("/cartIncrement", cartController.incrementQuantity)
+route.post("/cartDecrement", cartController.decrementQuantity)
 // route.delete("/removeCart/:id", cartController.removeCart)
 // route.put("/cartUpdate/:id", cartController.updateQuantity)
 
