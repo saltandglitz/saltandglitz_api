@@ -1,12 +1,16 @@
-// models/Product.js
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const recentlySchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    price: { type: Number, required: true },
-    image01: { type: String, required: true },
-});
+// const recentlyViewedSchema = new mongoose.Schema({
+//     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+//     items: [
+//         {
+//             id: String,
+//             title: String,
+//             image01: String,
+//             price: Number,
+//             dateViewed: { type: Date, default: Date.now },
+//         },
+//     ],
+// });
 
-const Recently = mongoose.model('Recently', recentlySchema);
-
-module.exports = Recently;
+// module.exports = mongoose.model('RecentlyViewed', recentlyViewedSchema);

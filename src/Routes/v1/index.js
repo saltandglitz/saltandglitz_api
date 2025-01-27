@@ -9,6 +9,7 @@ const cartsRoutes = require('./cart');
 const wishlistRoute = require("./wishlistRoutes")
 const productRoutes = require('./Product');
 const uploadRoutes = require('./upload_routes');
+// const recentlyViewedRoutes = require('./recently_routes');
 const bannerRoute = require("./banner.routes")
 const getCategoryRoute = require("./categoryData.routes")
 const otpRoute = require("./otp.routes")
@@ -27,6 +28,7 @@ router.use('/product', productRoutes);
 router.use('/upload', uploadRoutes);
 router.use("/category", getCategoryRoute);
 router.use("/otp", otpRoute)
+// router.use("/recently", recentlyViewedRoutes)
 
 
 module.exports = router;
