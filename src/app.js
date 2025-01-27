@@ -5,12 +5,10 @@ const bodyParser = require("body-parser");
 const connectDB = require("./db/dbconnection");
 const router = require("./Routes/v1");
 const userRoutes = require("./Routes/v1/userRoutes");
-const { createShipping } = require("./Controller/Shipping_controller");
-const Recently = require("./Model/recently");
 const app = express();  
 
 app.use(cors()); // Enable CORS
-app.use(bodyParser.json()); // Parse incoming JSON requests
+app.use(bodyParser.json()); // Ensure body-parser is used to parse JSON
 
 // Test Routes
 app.get("/", (req, res) => {

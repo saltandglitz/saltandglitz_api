@@ -83,7 +83,7 @@ const { cartSchema, User, Uplod } = require("../Model");
 module.exports.addToCart = async (req, res) => {
     let { product, user, quantity } = req.body;
 
-    console.log(req.body);
+    // console.log(req.body);
 
     // Validate the user and product IDs
     if (!user || !isValidObjectId(user)) {
@@ -196,7 +196,7 @@ module.exports.getCart = async (req, res) => {
 
         const totalQuantity = cart.quantity.reduce((sum, item) => sum + item.quantity, 0)
         const totalPrice = cart.quantity.reduce((sum, item) => sum + item.quantity * item.productId.total14KT, 0)
-        console.log(totalPrice);
+        // console.log(totalPrice);
 
         // console.log(totalQuantity);
 
@@ -402,8 +402,6 @@ module.exports.incrementQuantity = async (req, res) => {
         return res.status(500).send({ status: false, message: err.message });
     }
 };
-
-
 
 module.exports.decrementQuantity = async (req, res) => {
     const { cartId, productId, quantity } = req.body;

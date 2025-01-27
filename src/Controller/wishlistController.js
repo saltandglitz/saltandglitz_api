@@ -112,7 +112,16 @@ module.exports.getWishlist = async (req, res) => {
   }
 };
 
-
+module.exports.checkWishlist = async (req, res) => {
+  const { userId, productId } = req.params;
+  try {
+    const wishlistItem = await wishlistSchema.findOne({ userId, productId });
+    res.json({ isInWishlist: !!wishlistItem }); // Return true if item exists, else false
+  } catch (error) {
+    console.error('Error checking wishlist status:', error);
+    res.status(500).json({ error: 'Failed to fetch wishlist status' });
+  }
+}
 module.exports.removeFromWishlist = async (req, res) => {
   const { userId, productId } = req.params;
   try {
