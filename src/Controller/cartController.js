@@ -156,6 +156,7 @@ module.exports.addToCart = async (req, res) => {
 
 module.exports.getCart = async (req, res) => {
     let { user } = req.params;
+
     if (!user || !isValidObjectId(user)) {
         return res.status(400).send({ status: false, message: "Invalid user ID" });
     }
@@ -165,56 +166,54 @@ module.exports.getCart = async (req, res) => {
         if (!existingUser) {
             return res.status(404).send({ status: false, message: "User not found" });
         }
-        let cart = await cartSchema.findOne({ userId: user }).populate('quantity.productId');
-        // console.log(cart.quantity);
+
+        let cart = await cartSchema.findOne({ userId: user }).populate('quantity.productId').lean();
 
         if (!cart) {
             return res.status(404).send({ status: false, message: "Cart is empty" });
         }
 
+        // Debugging: Log cart data
+        // console.log("Cart Data:", JSON.stringify(cart, null, 2));
+
+        if (!cart.quantity || !Array.isArray(cart.quantity)) {
+            return res.status(500).send({ status: false, message: "Cart structure is invalid" });
+        }
+
         const updatedCart = {
             cart_id: cart._id,
-            ...cart.toObject(),
+            ...cart,
             _id: undefined,
-
-            quantity: cart.quantity.map(product => {
-                const { _id, productId, ...body } = product.toObject();
-                return {
+            quantity: cart.quantity
+                .filter(product => product.productId) // Ensure productId is valid
+                .map(product => ({
                     _id: undefined,
-                    ...body,
+                    ...product,
                     productId: {
-                        product_id: productId._id,
-                        ...productId,
+                        product_id: product.productId?._id,
+                        ...product.productId,
                         _id: undefined
                     }
-                };
-            })
-
-
+                }))
         };
-        // console.log(updatedCart.quantity.length);
 
-        const totalQuantity = cart.quantity.reduce((sum, item) => sum + item.quantity, 0)
-        const totalPrice = cart.quantity.reduce((sum, item) => sum + item.quantity * item.productId.total14KT, 0)
-        // console.log(totalPrice);
-
-        // console.log(totalQuantity);
-
-
+        const totalQuantity = cart.quantity.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        const totalPrice = cart.quantity.reduce((sum, item) => sum + (item.quantity * (item.productId?.total14KT || 0)), 0);
 
         return res.status(200).send({
             status: true,
             message: "Cart fetched successfully",
             cart: updatedCart,
-            totalQuantity: totalQuantity,
-            totalPrice: totalPrice
+            totalQuantity,
+            totalPrice
         });
 
     } catch (err) {
-        console.error(err);
-        return res.status(500).send({ status: false, message: err.message });
+        console.error("Error in getCart:", err);
+        return res.status(500).send({ status: false, message: "Internal server error", error: err.message });
     }
 };
+
 
 module.exports.removeItemFromCart = async (req, res) => {
     let { user, product } = req.params;

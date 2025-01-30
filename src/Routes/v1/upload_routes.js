@@ -29,6 +29,7 @@ router.post("/post_upload", async (req, res) => {
       if (existingProduct) {
         existingProduct.price14KT = product.price14KT;
         existingProduct.price18KT = product.price18KT;
+        existingProduct.gender = product.gender;
         existingProduct.image01 = product.img;
         existingProduct.image02 = product.image02;
         existingProduct.image03 = product.image03;

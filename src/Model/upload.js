@@ -4,7 +4,7 @@ const UploadSchema = new mongoose.Schema(
   {
       id: { type: String, required: true },
       title: { type: String, required: true },
-      gender: { type: String, required: true },
+      gender: { type: String },
       price14KT: { type: Number, required: true },
       price18KT: { type: Number, required: true },
       image01: { type: String, required: true },
