@@ -67,6 +67,9 @@ const verifyOtp = async (req, res) => {
 
     const user = await User.findOne({ email })
 
+    if (!user) {
+        return res.status(400).json({error:"User not found. Please sign up first."})
+    }
     // Normalize email to lowercase
     const normalizedEmail = email.toLowerCase();
 
@@ -79,8 +82,8 @@ const verifyOtp = async (req, res) => {
 
         res.status(200).json({ message: "OTP verified successfully", token, user });
     } else {
-        console.log("Stored OTP:", otpStore[normalizedEmail]);
-        console.log("Provided OTP:", otp);
+        // console.log("Stored OTP:", otpStore[normalizedEmail]);
+        // console.log("Provided OTP:", otp);
         res.status(400).json({ error: "Invalid OTP" });
     }
 };
